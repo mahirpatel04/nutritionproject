@@ -3,7 +3,39 @@ from classFood import Food
 from classMenu import Menu
 
 
+def calorieRequirement(userInfo):
+    height = userInfo[0]
+    weight = userInfo[1]
+    sex = userInfo[2]
+    age = userInfo[3]
+    activity_level = userInfo[4]
+                        
+    if sex.lower() == "m":
+        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+    else:
+        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
 
+
+    if (activity_level ==  1):
+        calorieEstimate = bmr * 1.2
+        
+    elif (activity_level == 2):
+        calorieEstimate = bmr * 1.375
+        
+    elif (activity_level == 3):
+        calorieEstimate = bmr * 1.55
+        
+    elif (activity_level == 4):
+        calorieEstimate = bmr * 1.725
+        
+    elif (activity_level == 5):
+        calorieEstimate = bmr * 1.9
+        
+    else:
+        print("Activity level is not listed")
+
+    return calorieEstimate
+    
 def getUserInput():
     """
     User will enter their information
@@ -13,17 +45,12 @@ def getUserInput():
                 later used
     """
     
-    print('''Welcome to the Nutrition App!
-    This application was created to promote a healthy lifestyle for students at the University of California, Riverside.
-    We have tailored this app to align with the residents' dining menu.
-    Please enter the required information to get started.''')
-    height = float(input("Enter your height in centimeters: " + "cm"))
+    height = float(entry_2.get())
     weight = float(input("Enter yout weight in kilograms: " + "kg"))
-    sex = input("Enter your sex (Male/Female): ")
+    sex = input("Enter your sex (M/F): ")
     age = float(input("Enter your age: " + "years old"))
-    meat = input("Are you vegetarian? (Yes/No): ")
     activity_level = input("Enter your activity level: Sedentary, Lightly active, Moderately active, Very active, Extra active: ")
-    return [height, weight, sex, age, meat, activity_level]
+    return [height, weight, sex, age, activity_level]
 
 def setUrl(inputDay, preferredRestaurant, mealType):
     """
@@ -75,6 +102,38 @@ dinnerItems = createFoodList(url, "Dinner")'''
 
 
 
+
+
+
+
+userInfo = getUserInput()
+
+today = date.today()
+
+url_breakfast = setUrl(today, "Glasgow", "Breakfast")
+url_lunch = setUrl(today, "Glasgow", "Lunch")
+url_dinner = setUrl(today, "Glasgow", "Dinner")
+totalCalRequirement = calorieRequirement(userInfo)
+calorie_breakfast =  totalCalRequirement * (1/4)
+calorie_lunch =  totalCalRequirement * (3/8)
+calorie_dinner = totalCalRequirement * (3/8)
+
+breakfastItems = Menu(url_breakfast, "Breakfast")
+lunchItems = Menu(url_lunch, "Lunch")
+dinnerItems = Menu(url_dinner, "Dinner")
+
+
+recommendedBreakfast = breakfastItems.recommendFood(calorie_breakfast)
+recommendedLunch = lunchItems.recommendFood(calorie_lunch)
+recommendedDinner = dinnerItems.recommendFood(calorie_dinner)
+
+breakfastItems.display()
+lunchItems.display()
+dinnerItems.display()
+
+
+
+
 '''''
 def CalculateProtein(self, sex, height, age, weight):
     protein = 0.0
@@ -107,33 +166,3 @@ def CalculateCalories(self, sex, height, age, weight, activity_level):
     return calories
 '''       
 
-'''
- # testing 
-print("TEST CASES") 
-breakfast = [
-
-    Food("Yogurt", 200, 1, "breakfast")
-
-]
-
-lunch = [
-
-    Food("Pork", 400, 1, "lunch")
-
-]
-
-dinner = [
-    Food("Rice and chicken", 550, 1, "dinner")
-]
-
-print("Breakfast items:")
-for item in Menu.breakfast:
-    print(f"Name: {item.name}, Calories: {item.calories}, Serving Size: {item.servingSize}")
-print("\nLunch items:")
-for item in Menu.lunch:
-    print(f"Name: {item.name}, Calories: {item.calories}, Serving Size: {item.servingSize}")
-print("\nDinner items:")
-for item in Menu.dinner:
-    print(f"Name: {item.name}, Calories: {item.calories}, Serving Size: {item.servingSize}")
-
-'''
