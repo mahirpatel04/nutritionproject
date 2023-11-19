@@ -36,22 +36,6 @@ def calorieRequirement(userInfo):
 
     return calorieEstimate
     
-def getUserInput():
-    """
-    User will enter their information
-
-    Returns:
-        _list_: Returns list containing information about the user which will be
-                later used
-    """
-    
-    height = float(entry_2.get())
-    weight = float(input("Enter yout weight in kilograms: " + "kg"))
-    sex = input("Enter your sex (M/F): ")
-    age = float(input("Enter your age: " + "years old"))
-    activity_level = input("Enter your activity level: Sedentary, Lightly active, Moderately active, Very active, Extra active: ")
-    return [height, weight, sex, age, activity_level]
-
 def setUrl(inputDay, preferredRestaurant, mealType):
     """
     Sets the url based on the date and which restaurant the user wants to eat at
@@ -101,11 +85,6 @@ dinnerItems = createFoodList(url, "Dinner")'''
 
 
 
-
-
-
-
-
 userInfo = getUserInput()
 
 today = date.today()
@@ -134,7 +113,7 @@ dinnerItems.display()
 
 
 
-'''''
+'''
 def CalculateProtein(self, sex, height, age, weight):
     protein = 0.0
     if sex.lower == "male":
@@ -143,26 +122,4 @@ def CalculateProtein(self, sex, height, age, weight):
         protein = 1.0 * height - 0.1 * age + 0.2 * weight + 5
     
     return protein
-
-def CalculateCalories(self, sex, height, age, weight, activity_level):
-    calories = 0.0
-    if sex == "male":
-        calories = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
-    elif sex.lower == "female":
-        calories = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
-    if activity_level.lower == "sedentary":
-        calories *= 1.2
-    if activity_level.lower == "lightly active":
-        calories *= 1.375
-    if activity_level.lower == "moderately active":
-        calories *= 1.55
-    if activity_level.lower == "very active":
-        calories *= 1.725
-    if activity_level.lower == "Extra active":
-        calories *= 1.9
-    else:
-        print("Activity level is not listed")
-     
-    return calories
-'''       
-
+'''
